@@ -8,7 +8,8 @@ const turmaEad = new Turma(5, 10, 'Turma de Data Science', 'ead');
 
 const aluno1 = new Aluno(
   'João', 
-  'Souza', 
+  'Souza',
+  15, 
   'joao@email.com', 
   'presencial', 
   turmaPresencial, 
@@ -19,9 +20,10 @@ const aluno1 = new Aluno(
 const aluno2 = new Aluno(
   'Matheus',
   'Souza',
+  18,
   'matheus@email.com',
-  'presencial',
-  turmaPresencial,
+  'ead',
+  turmaEad,
   new Date('2005-06-15'),
   [new Nota(9.5), new Nota(8.0), new Nota(7.0)],  // Array de notas
   true,
@@ -31,9 +33,10 @@ const aluno2 = new Aluno(
 const aluno3 = new Aluno(
   'Julia',
   'Martins',
+  14,
   'julia@email.com',
-  'ead',
-  turmaEad,
+  'presencial',
+  turmaPresencial,
   new Date('2005-06-15'),
   [new Nota(9.5), new Nota(8.0), new Nota(7.0)],  // Array de notas
   true,
