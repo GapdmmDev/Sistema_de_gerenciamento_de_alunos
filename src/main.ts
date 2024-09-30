@@ -1,59 +1,61 @@
 import { Aluno, Nota } from "./Aluno/aluno";
 import { Turma } from "./Turma/turma";
 
+
+const turmaPresencial = new Turma(1, 10, "Analise e desenvolvimento de sistemas", 'presencial');
+const turmaEad = new Turma(5, 10, 'Turma de Data Science', 'ead');
+
+
 const aluno1 = new Aluno(
-    'João',
-    'Silva',
-    'joao@email.com',
-    'regular',
-    3,
-    new Date('2005-06-15'),
-    [new Nota(9.5), new Nota(8.0), new Nota(7.0)],  // Array de notas
-    true
-)
+  'João', 
+  'Souza', 
+  'joao@email.com', 
+  'presencial', 
+  turmaPresencial, 
+  new Date('2005-06-15'), [new Nota(9.5), new Nota(8.0), new Nota(7.0)], 
+  true, 
+  "C");
 
 const aluno2 = new Aluno(
   'Matheus',
   'Souza',
   'matheus@email.com',
-  'regular',
-  3,
+  'ead',
+  turmaEad,
   new Date('2005-06-15'),
   [new Nota(9.5), new Nota(8.0), new Nota(7.0)],  // Array de notas
-  true
+  true,
+  "B"
 )
 
 const aluno3 = new Aluno(
   'Julia',
   'Martins',
   'julia@email.com',
-  'regular',
-  3,
+  'presencial',
+  turmaPresencial,
   new Date('2005-06-15'),
   [new Nota(9.5), new Nota(8.0), new Nota(7.0)],  // Array de notas
-  true
+  true,
+  "A"
 )
 
-const turma1 = new Turma(
-  3,
-  5,
-  [aluno1, aluno2, aluno3],
-  'Turma 3',
-  'ead'
-)
 
-// Método para calcular a média
 console.log(aluno2.calcularMedia())
 
-// Método para atualizar informações de um aluno
-aluno2.atualizarInformacoes({nome: 'Manoel'})
+
+aluno2.atualizarInformacoes({ nome: 'Manoel' })
 console.log(aluno2)
 
-// Método para retornar lista de alunos
-
-console.log(turma1.retornarAlunos()) 
-
-// Método para desativar ou ativar aluno
 
 aluno1.mudarStatusAluno(false)
 console.log(aluno1)
+
+console.log(aluno1.Idade())
+turmaPresencial.adicionarAluno(aluno1)
+turmaPresencial.adicionarAluno(aluno2)
+turmaEad.adicionarAluno(aluno3)
+
+
+
+console.log(turmaPresencial.alunos)
