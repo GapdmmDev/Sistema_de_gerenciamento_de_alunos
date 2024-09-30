@@ -8,4 +8,12 @@ export class Turma{
         public descricao: string,
         public tipo: string
     ){}
+
+    retornarAlunos(): void{
+        this.alunos.forEach(aluno => {
+            console.log(aluno)
+        })
+    }
+
+    
 }

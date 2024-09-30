@@ -42,4 +42,18 @@ const turma1 = new Turma(
   'ead'
 )
 
-console.log(turma1)
+// Método para calcular a média
+console.log(aluno2.calcularMedia())
+
+// Método para atualizar informações de um aluno
+aluno2.atualizarInformacoes({nome: 'Manoel'})
+console.log(aluno2)
+
+// Método para retornar lista de alunos
+
+console.log(turma1.retornarAlunos()) 
+
+// Método para desativar ou ativar aluno
+
+aluno1.mudarStatusAluno(false)
+console.log(aluno1)
