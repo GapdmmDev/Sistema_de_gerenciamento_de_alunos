@@ -1,40 +1,71 @@
-import { Aluno } from '../Aluno/aluno';
+type Modalidade = 'presencial' | 'ead';
+import { Aluno } from "../Aluno/aluno";
 
-export class Turma {
-  constructor(
-    public codigo: number, // entre 1 e 10
-    public maximo: number, // de 5 a 10 alunos
-    public alunos: Aluno[] = [],
-    public descricao: string,
-    public tipo: string // 'presencial' ou 'ead'
-  ) {}
-
-  adicionarAluno(aluno: Aluno): void {
-    if (this.alunos.length >= this.maximo) {
-      console.log('Turma atingiu o número máximo de alunos.');
-    } else if (aluno.tipo !== this.tipo) {
-      console.log('O tipo do aluno não corresponde ao tipo da turma.');
-    } else {
-      this.alunos.push(aluno);
-      console.log(`Aluno ${aluno.nome} adicionado à turma ${this.codigo}.`);
+export class Turma{
+    private static registroDeTurmas: number[] = []
+    public alunos: Aluno[] = [];
+    
+    constructor(
+        public codigo: number,
+        public maximo: number,
+        public descricao: string,
+        public tipo: Modalidade
+    ){
+        try {
+            if (codigo < 1 || codigo > 10) {
+                throw new Error('É necessário o código de turma estar entre 1 e 10');
+            }
+            if (maximo < 5 || maximo > 10) {
+                throw new Error('Limite máximo de alunos deve estar entre 5 e 10');
+            }
+            if (Turma.registroDeTurmas.includes(codigo)) {
+                throw new Error('Turma com este código já existe');
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message); 
+            } else {
+                console.error("Ocorreu um erro desconhecido");
+            }
+        }
+        Turma.registroDeTurmas.push(codigo);
     }
-  }
 
-  removerAluno(email: string): void {
-    const index = this.alunos.findIndex((aluno) => aluno.email === email);
-    if (index !== -1) {
-      const alunoRemovido = this.alunos.splice(index, 1)[0];
-      console.log(`Aluno ${alunoRemovido.nome} removido da turma ${this.codigo}.`);
-    } else {
-      console.log('Aluno não encontrado na turma.');
+    adicionarAluno(aluno: Aluno) {
+        const alunoExistente = this.alunos.some(a => a.email === aluno.email);
+      try {  if (alunoExistente) {
+            console.log('Aluno já está matriculado nessa turma');
+            }
+          if (this.alunos.length >= this.maximo) {
+            console.log('Essa turma já atingiu o seu limite máximo de alunos');
+          }
+          if (aluno.tipo !== this.tipo) {
+            console.log('Tipo de ensino do aluno não corresponde ao ensino dessa turma');
+          }
+          if (this.alunos.some(a => a.classificacao === 'A' || a.classificacao === 'D') &&
+              (aluno.classificacao === 'B' || aluno.classificacao === 'C')) {
+            console.log('Alunos com classificação A e D não podem estar na turma com classificação de alunos B e C');
+          }
+          if ((this.alunos.some(a => a.classificacao === 'B' || a.classificacao === 'C')) &&
+              (aluno.classificacao === 'A' || aluno.classificacao === 'D')) {
+            console.log('Alunos com classificação B e C não podem estar na turma com classificação de alunos A e D');
+          } }
+          catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message); 
+            } else {
+                console.error("Ocorreu um erro desconhecido");
+            }
+          this.alunos.push(aluno);
+        }
     }
-  }
+    
 
-  buscarAluno(email: string): Aluno | undefined {
-    return this.alunos.find((aluno) => aluno.email === email);
-  }
+    retornarAlunos(): void{
+        this.alunos.forEach(aluno => {
+            console.log(aluno)
+        })
+    }
 
-  retornarAlunos(): Aluno[] {
-    return this.alunos;
-  }
+    
 }
